@@ -1,7 +1,27 @@
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
-# Binaries for programs and plugins
+# Ignore built files for Next.js
+
+out/
+.next
+build
+next-env.d.ts
+
+# Ignore node_modules directory
+node_modules/
+node_modules
+# Ignore .env files containing sensitive information
+
+.vscode
+.env
+bin
+.bin
+tmp/
+.DS_Store
+
+
+.parcel-cache
 *.exe
 *.exe~
 *.dll
@@ -16,7 +36,9 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+/vendor/
 
 # Go workspace file
 go.work
 go.work.sum
+
