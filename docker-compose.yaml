@@ -1,0 +1,64 @@
+version: '24.0.5'
+services:
+
+
+
+
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: go.dockerfile
+  #   ports:
+  #     - 8000:8000
+  #   volumes:
+  #     - .:/app
+  #   environment:
+  #     DATABASE_URL: 'postgres://postgres:postgres@db:5432/postgres?sslmode=disable'
+  #   depends_on:
+  #     - db
+  #     - redis
+
+
+
+  stripe-cli:
+    image: stripe/stripe-cli:latest
+    container_name: stripe-cli
+    command: "listen --api-key {  YOUR API KEY } --device-name name  --forward-to { YOUR INGESTION URL } --skip-verify " # EXAMPLE ost.docker.internal:8000/api/webhook
+    
+   
+    env_file:
+      - stripe.env
+
+  db:
+    container_name: db
+    
+    image: postgres:13.15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres"]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+      
+
+  
+
+  # redis:
+  #   image: redis:latest
+  #   ports:
+  #     - 6379:6379
+
+  #   volumes:
+  #     - ./redis:/usr/local/etc/redis/redis.conf
+
+volumes:
+    pgdata: {}
+
