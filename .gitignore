@@ -12,6 +12,7 @@ next-env.d.ts
 node_modules/
 node_modules
 # Ignore .env files containing sensitive information
+.env*.local
 
 .vscode
 .env
@@ -19,7 +20,7 @@ bin
 .bin
 tmp/
 .DS_Store
-
+.vercel
 
 .parcel-cache
 *.exe
@@ -27,6 +28,8 @@ tmp/
 *.dll
 *.so
 *.dylib
+next-env.d.ts
+
 
 # Test binary, built with `go test -c`
 *.test
